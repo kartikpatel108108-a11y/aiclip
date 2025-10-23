@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VidReel AI - Transform YouTube Videos into Viral Short Clips</title>
+    <meta name="description" content="VidReel AI: Free AI-powered tool to automatically transform YouTube videos and long content into multiple short, engaging clips optimized for social media with auto-captions.">
+    <meta name="keywords" content="VidReel AI, video repurposing, YouTube to shorts, AI video tool, social media clips, YouTube shorts, TikTok videos, Instagram reels, video editing, auto captions">
+    <meta name="author" content="VidReel AI">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --success: #00b894;
+            --danger: #ff7675;
+            --warning: #fdcb6e;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .logo-text {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(90deg, var(--success), #00cec9);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .ad-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .ad-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            color: var(--gray);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .module {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .module-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .module-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .module-content {
+            margin-top: 15px;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(106, 17, 203, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .input-with-button {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .input-with-button input {
+            flex: 1;
+        }
+        
+        .youtube-input {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        .youtube-input:focus {
+            border-color: #ff0000;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #00cec9);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #e84393);
+        }
+        
+        .btn-youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .clips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .clip-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .clip-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .clip-preview {
+            height: 170px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .virality-score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .clip-info {
+            padding: 15px;
+        }
+        
+        .clip-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .clip-duration {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .engagement-metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .description-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+        }
+        
+        .hashtag {
+            color: var(--success);
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .video-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .transcript-editor {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        
+        .transcript-line {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .transcript-line:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .transcript-line.active {
+            background: rgba(106, 17, 203, 0.3);
+        }
+        
+        .highlighted-word {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider {
+            flex: 1;
+        }
+        
+        .brand-preview {
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .brand-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+        
+        .toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .toggle input {
+            display: none;
+        }
+        
+        .toggle-label {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .toggle-label:after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .toggle input:checked + .toggle-label {
+            background: var(--success);
+        }
+        
+        .toggle input:checked + .toggle-label:after {
+            left: 27px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-ready {
+            background: var(--success);
+        }
+        
+        .status-processing {
+            background: var(--warning);
+        }
+        
+        .status-waiting {
+            background: var(--gray);
+        }
+        
+        .clip-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .platform-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .platform-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .platform-btn.active {
+            background: var(--primary);
+        }
+        
+        .input-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .input-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .input-tab.active {
+            background: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .modules-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .clips-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-with-button {
+                flex-direction: column;
+            }
+            
+            .logo-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">V</div>
+                <h1 class="logo-text">VidReel</h1>
+                <span class="ai-badge">AI</span>
+            </div>
+            <p class="subtitle">Transform YouTube Videos & Long Content into Viral Short Clips</p>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder" id="adHeader">
+                    <!-- AdSense Header Ad - Drag & Drop Code Here -->
+                    <p>Header Ad Space (728x90)</p>
+                    <p><i class="fas fa-ad"></i> Drag & Drop AdSense Code Here</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="adSidebar1">
+                <!-- AdSense Sidebar Ad - Drag & Drop Code Here -->
+                <p>Sidebar Ad Space (300x250)</p>
+                <p><i class="fas fa-ad"></i> Drag & Drop AdSense Code Here</p>
+            </div>
+        </div>
+        
+        <div class="modules-container">
+            <!-- Module 1: AI-Powered Curation -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h2 class="module-title">Content Input</h2>
+                </div>
+                <div class="module-content">
+                    <div class="input-tabs">
+                        <div class="input-tab active" data-tab="upload">Upload Video</div>
+                        <div class="input-tab" data-tab="youtube">YouTube URL</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="upload-tab">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p>Drag & drop your video file here</p>
+                            <p class="subtitle">or click to browse (MP4, MOV, AVI)</p>
+                            <input type="file" id="videoUpload" accept="video/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="youtube-tab">
+                        <div class="form-group">
+                            <label for="youtubeUrl">YouTube Video URL</label>
+                            <div class="input-with-button">
+                                <input type="url" id="youtubeUrl" class="youtube-input" placeholder="https://www.youtube.com/watch?v=...">
+                                <button class="btn btn-youtube" id="fetchYoutubeBtn">
+                                    <i class="fab fa-youtube"></i> Fetch
+                                </button>
+                            </div>
+                        </div>
+                        <div class="youtube-preview" id="youtubePreview" style="display: none;">
+                            <div class="video-preview">
+                                <i class="fab fa-youtube" style="font-size: 3rem; color: #ff0000; margin-bottom: 15px;"></i>
+                                <p id="youtubeTitle">Video Title</p>
+                                <p class="subtitle" id="youtubeDuration">Duration: 0:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="focusTopic">Focus Topic (Optional)</label>
+                        <input type="text" id="focusTopic" placeholder="e.g., crypto investments, marketing tips">
+                    </div>
+                    
+                    <div class="platform-selector">
+                        <button class="platform-btn active" data-platform="youtube">YouTube</button>
+                        <button class="platform-btn" data-platform="tiktok">TikTok</button>
+                        <button class="platform-btn" data-platform="instagram">Instagram</button>
+                    </div>
+                    
+                    <button class="btn" id="analyzeBtn">
+                        <i class="fas fa-play"></i> Analyze Content
+                    </button>
+                    
+                    <div class="progress-container" id="analysisProgress" style="display: none;">
+                        <p>Analyzing video content...</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="analysisProgressBar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <!-- Module 2: Automated Editing -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-crop-alt"></i>
+                    </div>
+                    <h2 class="module-title">Automated Editing</h2>
+                </div>
+                <div class="module-content">
+                    <div class="toggle">
+                        <input type="checkbox" id="autoReframe" checked>
+                        <label for="autoReframe" class="toggle-label"></label>
+                        <label for="autoReframe">Auto Reframe (9:16)</label>
+                    </div>
+                    
+                    <div class="toggle">
+                        <input type="checkbox" id="smoothTransitions" checked>
+                        <label for="smoothTransitions" class="toggle-label"></label>
+                        <label for="smoothTransitions">Smooth Transitions</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clipDuration">Max Clip Duration (seconds)</label>
+                        <div class="slider-container">
+                            <input type="range" id="clipDuration" class="slider" min="10" max="60" value="30">
+                            <span id="clipDurationValue">30s</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clipCount">Number of Clips to Generate</label>
+                        <div class="slider-container">
+                            <input type="range" id="clipCount" class="slider" min="3" max="12" value="6">
+                            <span id="clipCountValue">6 clips</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="generateClipsBtn" disabled>
+                        <i class="fas fa-film"></i> Generate Clips
+                    </button>
+                </div>
+            </div>
+
+            <!-- Module 3: Caption Generation -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-closed-captioning"></i>
+                    </div>
+                    <h2 class="module-title">Dynamic Captions</h2>
+                </div>
+                <div class="module-content">
+                    <div class="form-group">
+                        <label for="fontStyle">Font Style</label>
+                        <select id="fontStyle">
+                            <option value="Poppins">Poppins (Modern)</option>
+                            <option value="Montserrat">Montserrat (Clean)</option>
+                            <option value="Roboto">Roboto (Standard)</option>
+                            <option value="Open Sans">Open Sans (Readable)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="primaryColor">Primary Color</label>
+                        <input type="color" id="primaryColor" value="#4cc9f0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="highlightColor">Highlight Color</label>
+                        <input type="color" id="highlightColor" value="#f8961e">
+                    </div>
+                    
+                    <div class="toggle">
+                        <input type="checkbox" id="autoHighlight" checked>
+                        <label for="autoHighlight" class="toggle-label"></label>
+                        <label for="autoHighlight">Auto Highlight Keywords</label>
+                    </div>
+                    
+                    <div class="toggle">
+                        <input type="checkbox" id="autoHashtags" checked>
+                        <label for="autoHashtags" class="toggle-label"></label>
+                        <label for="autoHashtags">Auto Generate Hashtags</label>
+                    </div>
+                    
+                    <div class="brand-preview">
+                        <div class="brand-logo">V</div>
+                        <div class="brand-text" id="previewText">VidReel AI</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: In-App Editor -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h2 class="module-title">In-App Editor</h2>
+                </div>
+                <div class="module-content">
+                    <p>Refine AI-generated clips with intuitive editing tools</p>
+                    
+                    <div class="editor-container">
+                        <div class="video-preview">
+                            <i class="fas fa-play-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>Video Preview</p>
+                        </div>
+                        
+                        <div class="transcript-editor">
+                            <div class="transcript-line active">
+                                <span class="highlighted-word">Welcome</span> to VidReel AI
+                            </div>
+                            <div class="transcript-line">
+                                Transform your <span class="highlighted-word">content</span> with AI
+                            </div>
+                            <div class="transcript-line">
+                                Create engaging <span class="highlighted-word">short clips</span>
+                            </div>
+                            <div class="transcript-line">
+                                Boost your <span class="highlighted-word">social media</span> presence
+                            </div>
+                            <div class="transcript-line">
+                                Try VidReel AI <span class="highlighted-word">today</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Clip
+                        </button>
+                        <button class="btn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="adSidebar2">
+                <!-- AdSense Sidebar Ad - Drag & Drop Code Here -->
+                <p>Sidebar Ad Space (300x600)</p>
+                <p><i class="fas fa-ad"></i> Drag & Drop AdSense Code Here</p>
+            </div>
+        </div>
+
+        <!-- Generated Clips Section -->
+        <div class="module">
+            <div class="module-header">
+                <div class="module-icon">
+                    <i class="fas fa-list"></i>
+                </div>
+                <h2 class="module-title">Generated Clips</h2>
+            </div>
+            <div class="module-content">
+                <p><span class="status-indicator status-waiting"></span> Add content to generate clips</p>
+                
+                <div class="clips-container" id="clipsContainer">
+                    <!-- Clips will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="adFooter">
+                <!-- AdSense Footer Ad - Drag & Drop Code Here -->
+                <p>Footer Ad Space (728x90)</p>
+                <p><i class="fas fa-ad"></i> Drag & Drop AdSense Code Here</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>VidReel AI &copy; 2023 - Transform YouTube Videos into Viral Short Clips</p>
+            <p>AI-Powered Content Repurposing for YouTube Shorts, TikTok, and Instagram Reels</p>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const videoUpload = document.getElementById('videoUpload');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const analysisProgress = document.getElementById('analysisProgress');
+        const analysisProgressBar = document.getElementById('analysisProgressBar');
+        const generateClipsBtn = document.getElementById('generateClipsBtn');
+        const clipDuration = document.getElementById('clipDuration');
+        const clipDurationValue = document.getElementById('clipDurationValue');
+        const clipCount = document.getElementById('clipCount');
+        const clipCountValue = document.getElementById('clipCountValue');
+        const clipsContainer = document.getElementById('clipsContainer');
+        const primaryColor = document.getElementById('primaryColor');
+        const highlightColor = document.getElementById('highlightColor');
+        const previewText = document.getElementById('previewText');
+        const fontStyle = document.getElementById('fontStyle');
+        const platformButtons = document.querySelectorAll('.platform-btn');
+        const inputTabs = document.querySelectorAll('.input-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const youtubeUrl = document.getElementById('youtubeUrl');
+        const fetchYoutubeBtn = document.getElementById('fetchYoutubeBtn');
+        const youtubePreview = document.getElementById('youtubePreview');
+        const youtubeTitle = document.getElementById('youtubeTitle');
+        const youtubeDuration = document.getElementById('youtubeDuration');
+        // Sample data for generated clips
+        const sampleClips = [
+            {
+                title: "Introduction to VidReel AI",
+                duration: "0:15",
+                score: 92,
+                engagement: { views: "85%", retention: "92%", clicks: "78%" },
+                description: "Discover how VidReel AI transforms your content! #VidReelAI #ContentCreation #AI #YouTubeShorts #SocialMedia #Viral"
+            },
+            {
+                title: "Key Features Explained",
+                duration: "0:22",
+                score: 87,
+                engagement: { views: "78%", retention: "87%", clicks: "72%" },
+                description: "These AI features will save you hours of editing time! #Productivity #VideoEditing #AI #Efficiency #ContentCreator #Tips"
+            },
+            {
+                title: "Benefits for Creators",
+                duration: "0:18",
+                score: 95,
+                engagement: { views: "92%", retention: "95%", clicks: "85%" },
+                description: "How VidReel AI helps you grow your channel faster! #Growth #YouTube #ContentCreator #Success #AI #Marketing"
+            },
+            {
+                title: "How It Works - Demo",
+                duration: "0:25",
+                score: 83,
+                engagement: { views: "75%", retention: "83%", clicks: "68%" },
+                description: "See VidReel AI in action with this demo! #Demo #Tutorial #HowTo #AI #VideoEditing #Tech"
+            },
+            {
+                title: "Case Study - Success Story",
+                duration: "0:30",
+                score: 89,
+                engagement: { views: "82%", retention: "89%", clicks: "79%" },
+                description: "How creators gained subscribers using VidReel AI! #SuccessStory #CaseStudy #YouTubeGrowth #ContentCreator"
+            },
+            {
+                title: "Conclusion & Next Steps",
+                duration: "0:12",
+                score: 78,
+                engagement: { views: "70%", retention: "78%", clicks: "65%" },
+                description: "Start using VidReel AI to transform your content today! #Conclusion #NextSteps #AI #ContentCreation"
+            }
+        ];
+
+        // Event Listeners
+        uploadArea.addEventListener('click', () => {
+            videoUpload.click();
+        });
+        
+        videoUpload.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                uploadArea.innerHTML = `
+                    <div class="upload-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <p>${fileName}</p>
+                    <p class="subtitle">Ready for analysis</p>
+                `;
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        // Input tab switching
+        inputTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                inputTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+                
+                // Reset analysis button state
+                analyzeBtn.disabled = true;
+                
+                // If YouTube tab is active and URL is already provided, enable analyze button
+                if (tabId === 'youtube' && youtubeUrl.value.trim() !== '') {
+                    analyzeBtn.disabled = false;
+                }
+            });
+        });
+        
+        // YouTube URL fetching
+        fetchYoutubeBtn.addEventListener('click', () => {
+            const url = youtubeUrl.value.trim();
+            if (url === '') {
+                alert('Please enter a YouTube URL');
+                return;
+            }
+            
+            // Validate YouTube URL
+            if (!isValidYouTubeUrl(url)) {
+                alert('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            // Simulate fetching YouTube video data
+            fetchYoutubeBtn.disabled = true;
+            fetchYoutubeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching...';
+            
+            setTimeout(() => {
+                // Simulate successful fetch
+                youtubeTitle.textContent = 'How to Create Engaging Short Videos';
+                youtubeDuration.textContent = 'Duration: 12:34';
+                youtubePreview.style.display = 'block';
+                
+                fetchYoutubeBtn.disabled = false;
+                fetchYoutubeBtn.innerHTML = '<i class="fab fa-youtube"></i> Fetch';
+                
+                // Enable analyze button
+                analyzeBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // YouTube URL validation
+        function isValidYouTubeUrl(url) {
+            const pattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            return pattern.test(url);
+        }
+        clipDuration.addEventListener('input', () => {
+            clipDurationValue.textContent = `${clipDuration.value}s`;
+        });
+        
+        clipCount.addEventListener('input', () => {
+            clipCountValue.textContent = `${clipCount.value} clips`;
+        });
+        
+        primaryColor.addEventListener('input', () => {
+            previewText.style.color = primaryColor.value;
+        });
+        
+        highlightColor.addEventListener('input', () => {
+            document.documentElement.style.setProperty('--warning', highlightColor.value);
+        });
+        
+        fontStyle.addEventListener('change', () => {
+            previewText.style.fontFamily = fontStyle.value;
+        });
+        
+        // Platform selection
+        platformButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                platformButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        analyzeBtn.addEventListener('click', () => {
+            // Simulate analysis process
+            analysisProgress.style.display = 'block';
+            analyzeBtn.disabled = true;
+            fetchYoutubeBtn.disabled = true;
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                analysisProgressBar.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    analysisProgress.innerHTML = `
+                        <p><i class="fas fa-check-circle" style="color: #00b894;"></i> Analysis complete!</p>
+                    `;
+                    generateClipsBtn.disabled = false;
+                    
+                    // Update status indicator
+                    document.querySelector('.status-indicator').className = 'status-indicator status-ready';
+                    document.querySelector('.status-indicator').nextSibling.textContent = ' Content analyzed. Ready to generate clips';
+                }
+            }, 200);
+        });
+        
+        generateClipsBtn.addEventListener('click', () => {
+            // Clear existing clips
+            clipsContainer.innerHTML = '';
+            
+            // Get number of clips to generate
+            const numClips = parseInt(clipCount.value);
+            
+            // Generate clips
+            for (let i = 0; i < numClips; i++) {
+                const clipIndex = i % sampleClips.length;
+                const clip = sampleClips[clipIndex];
+
+                const clipCard = document.createElement('div');
+                clipCard.className = 'clip-card';
+                clipCard.innerHTML = `
+                    <div class="clip-preview">
+                        <i class="fas fa-play" style="font-size: 2rem;"></i>
+                        <div class="virality-score">${clip.score}% Viral</div>
+                    </div>
+                    <div class="clip-info">
+                        <div class="clip-title">${clip.title} (Variation ${i+1})</div>
+                        <div class="clip-duration">${clip.duration}</div>
+                        
+                        <div class="engagement-metrics">
+                            <div class="metric">
+                                <div class="metric-value">${clip.engagement.views}</div>
+                                <div class="metric-label">Views</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">${clip.engagement.retention}</div>
+                                <div class="metric-label">Retention</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">${clip.engagement.clicks}</div>
+                                <div class="metric-label">Clicks</div>
+                            </div>
+                        </div>
+                        
+                        <div class="description-box">
+                            ${formatDescription(clip.description)}
+                        </div>
+                        
+                        <div class="clip-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="action-btn copy-btn"><i class="fas fa-copy"></i> Copy Text</button>
+                            <button class="action-btn"><i class="fas fa-download"></i> Export</button>
+                        </div>
+                    </div>
+                `;
+                clipsContainer.appendChild(clipCard);
+            }
+            
+            // Update status indicator
+            document.querySelector('.status-indicator').className = 'status-indicator status-ready';
+            document.querySelector('.status-indicator').nextSibling.textContent = ` ${numClips} clips generated. Ready for editing`;
+            
+            // Add copy functionality to buttons
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const description = this.closest('.clip-card').querySelector('.description-box').textContent;
+                    navigator.clipboard.writeText(description).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+        });
+
+        // Format description with hashtag styling
+        function formatDescription(text) {
+            return text.split(' ').map(word => {
+                if (word.startsWith('#')) {
+                    return `<span class="hashtag">${word}</span>`;
+                }
+                return word;
+            }).join(' ');
+        }
+        
+        // Transcript editor interaction
+        const transcriptLines = document.querySelectorAll('.transcript-line');
+        transcriptLines.forEach(line => {
+            line.addEventListener('click', () => {
+                transcriptLines.forEach(l => l.classList.remove('active'));
+                line.classList.add('active');
+            });
+        });
+        
+        // Initialize color preview
+        previewText.style.color = primaryColor.value;
+        previewText.style.fontFamily = fontStyle.value;
+    </script>
+</body>
+</html>
